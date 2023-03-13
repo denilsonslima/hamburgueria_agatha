@@ -51,6 +51,7 @@ const GlobalStyle = createGlobalStyle`
 
     * {
         box-shadow: border-box;
+        box-sizing: border-box;
         li{
             list-style-type: none;
         }
