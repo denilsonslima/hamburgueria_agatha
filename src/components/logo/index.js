@@ -49,6 +49,7 @@ const StyleSection = styled.section`
     font-weight: 700;
     line-height: 40px;
     margin-bottom: 22px;
+    pointer-events: none;
     span {
       font-size: 23px;
       color: #eb5757;
@@ -87,6 +88,7 @@ const StyleDescription = styled.div`
     font-size: 14px;
     line-height: 22px;
     color: #828282;
+    pointer-events: none;
   }
 `;
 

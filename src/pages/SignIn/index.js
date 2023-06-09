@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import FormLogin from "../components/formLogin";
-import Logo from "../components/logo";
+import FormLogin from "../../components/FormSignIn";
+import Logo from "../../components/logo";
 
-export default function LoginPage(){
+
+export default function SignIn(){
     return(
         <StyledSection>
             <FormLogin/>

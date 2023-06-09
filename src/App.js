@@ -1,14 +1,17 @@
-import FormLogin from "./components/formLogin";
-import Header from "./components/header";
-import Logo from "./components/logo";
-import LoginPage from "./pages/loginPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
-    <div className="App">
-      <Header/>
-      <LoginPage/>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SignIn />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
