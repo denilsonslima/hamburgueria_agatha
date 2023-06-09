@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../Form/Button";
 import Input from "../Form/Input";
-import { Auth, Line, LineContainer, OrText, StyleForm, StyleSection } from "./styles";
+import { Auth, Line, LineContainer, OrText, StyleForm, Container } from "../Form/styles";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../services/firebase";
 import google from "../../assets/images/google.svg"
@@ -19,7 +19,7 @@ export default function FormLogin() {
   };
 
   return (
-    <StyleSection>
+    <Container>
       <h3>Login</h3>
       <StyleForm>
         <div>
@@ -35,7 +35,7 @@ export default function FormLogin() {
         </Button>
       </StyleForm>
 
-      <div>
+      <div style={{display: "flex", justifyContent: "center"}}>
         <Link to="/signup">
           <span>Não tem uma conta? Cadastre-se!</span>
         </Link>
@@ -50,6 +50,6 @@ export default function FormLogin() {
       <Auth onClick={handleGoogleSignIn}>
         <img src={google} alt="login-com-google" />
       </Auth>
-    </StyleSection>
+    </Container>
   );
 }

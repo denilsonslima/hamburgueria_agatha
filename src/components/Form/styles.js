@@ -1,6 +1,24 @@
 import styled from "styled-components";
 
-export const StyleSection = styled.section`
+export const StyledSection = styled.section`
+  max-width: 100vw;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 62px;
+
+  @media (max-width: 768px) {
+    min-height: 100vh;
+    height: 100%;
+    flex-direction: column-reverse;
+    padding: 40px 20px 0;
+    gap: 0;
+  }
+`;
+
+export const Container = styled.section`
   max-width: 500px;
   width: 100%;
   height: auto;
@@ -8,7 +26,8 @@ export const StyleSection = styled.section`
   box-shadow: 0px 0px 30px -20px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   padding: 26px 24px;
-  > h3 {
+  > h3,
+  > div h3 {
     display: inline-block;
     width: 53px;
     height: 30px;
@@ -21,28 +40,27 @@ export const StyleSection = styled.section`
     color: #333333;
   }
 
-  > div {
-    display: flex;
-    justify-content: center;
-    > a span {
-      display: inline-block;
-      height: 18px;
-      font-family: "Inter";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 18px;
-      text-align: center;
-      color: #999999;
-      margin: 19px auto 21px;
-      &:hover {
-        text-decoration: underline;
-      }
+  > div a span {
+    display: inline-block;
+    height: 18px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    color: #999999;
+    margin: 19px auto 21px;
+    &:hover {
+      text-decoration: underline;
     }
   }
 `;
 
 export const StyleForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
   div {
     position: relative;
 
@@ -66,9 +84,8 @@ export const StyleForm = styled.form`
     }
   }
 
-  div:nth-of-type(2) {
-    margin-top: 25px;
-    margin-bottom: 19px;
+  button {
+    margin-top: -5px;
   }
 `;
 
@@ -98,16 +115,26 @@ export const Auth = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  & img:hover{
+  & img:hover {
     cursor: pointer;
-    animation: tremer .2s;
+    animation: tremer 0.2s;
   }
 
   @keyframes tremer {
-    0% {margin-left: 0;}
-    25% {margin-left: 7px;}
-    50% {margin-left: 0;}
-    75% {margin-left: -7px;}
-    100% {margin-left: 0;}
-}
+    0% {
+      margin-left: 0;
+    }
+    25% {
+      margin-left: 7px;
+    }
+    50% {
+      margin-left: 0;
+    }
+    75% {
+      margin-left: -7px;
+    }
+    100% {
+      margin-left: 0;
+    }
+  }
 `;

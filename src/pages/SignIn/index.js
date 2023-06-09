@@ -1,7 +1,6 @@
-import styled from "styled-components";
 import FormLogin from "../../components/FormSignIn";
-import Logo from "../../components/logo";
-
+import Logo from "../../components/Logo";
+import { StyledSection } from "../../components/Form/styles";
 
 export default function SignIn(){
     return(
@@ -11,21 +10,3 @@ export default function SignIn(){
         </StyledSection>
     )
 }
-
-const StyledSection = styled.section`
-    max-width: 100vw;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 62px;
-
-    @media (max-width: 768px){
-        min-height: 100vh;
-        height: 100%;
-        flex-direction: column-reverse;
-        padding: 40px 20px 0;
-        gap: 0;
-    }
-`

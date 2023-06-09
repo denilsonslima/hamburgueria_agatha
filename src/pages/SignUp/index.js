@@ -1,5 +1,12 @@
+import { StyledSection } from "../../components/Form/styles";
+import FormSignUp from "../../components/FormSignUp";
+import Logo from "../../components/Logo";
+
 export default function SignUp(){
   return (
-    <section>oi</section>
+    <StyledSection>
+      <Logo/>
+      <FormSignUp/>
+    </StyledSection>
   )
 }
