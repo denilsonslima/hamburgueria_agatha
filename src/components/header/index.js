@@ -4,10 +4,12 @@ import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { HiSearch } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({click, setClick}) {
   const [isFocus, setFocus] = useState(false);
   const [search, setSearch] = useState(false);
+  const navigate = useNavigate()
   
   return !search ? (
     <StyleSection>
@@ -27,11 +29,11 @@ export default function Header() {
           </div>
         </StyleInput>
         <HiSearch className="iconSearch" onClick={() => setSearch(true)} />
-        <div>
+        <div onClick={() => setClick(!click)}>
           <FaShoppingCart />
           <span>0</span>
         </div>
-        <FiLogOut />
+        <FiLogOut onClick={() => navigate("/")}/>
       </StyleContainer>
     </StyleSection>
   ) : (
@@ -57,7 +59,12 @@ const StyleSection = styled.section`
   background: #f5f5f5;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 10vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
   h1 {
     width: 170px;
     height: 37px;
@@ -65,6 +72,7 @@ const StyleSection = styled.section`
     font-size: 25px;
     font-weight: 700;
     line-height: 37px;
+    pointer-events: none;
     span {
       font-size: 15px;
       color: #eb5757;

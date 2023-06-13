@@ -56,5 +56,9 @@ const GlobalStyle = createGlobalStyle`
             list-style-type: none;
         }
     }
+
+    body {
+        overflow: hidden;
+    }
 `
 export default GlobalStyle
