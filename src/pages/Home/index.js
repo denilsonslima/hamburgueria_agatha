@@ -1,13 +1,25 @@
-import styled from "styled-components";
 import Card from "../../components/Card";
 import Header from "../../components/header";
-import food from "../../assets/images/202109090436_skn5yx754p 1.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Car, CardContainer, CardsStyle, Container, Main } from "./styles";
 
 export default function Home() {
   const [selectedCards, setSelectedCards] = useState([]);
   const [selectedDrink, setSelectDrink] = useState([]);
+  const [product, setProducts] = useState(false);
   const [click, setClick] = useState(false);
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const products = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/products`
+      );
+      setProducts(products.data);
+    };
+    fetchProducts();
+  }, []);
 
   const handleCardClick = (cardId, type) => {
     if (!selectedCards.includes(cardId) || !selectedDrink.includes(cardId)) {
@@ -19,59 +31,72 @@ export default function Home() {
     }
   };
 
-  const cardsData = [
-    { id: 1, img: food, title: "Sanduiches", price: 14.0, food: "Hamburgues" },
-    { id: 2, img: food, title: "Sanduiches", price: 14.0, food: "Hamburgues" },
-    { id: 3, img: food, title: "Sanduiches", price: 14.0, food: "Hamburgues" },
-    { id: 4, img: food, title: "Sanduiches", price: 14.0, food: "Hamburgues" },
-    // ...
-  ];
+  const findProducts = (text) => {
+    if (text.length === 0) {
+      return product;
+    }
+
+    const burger = product.burger.filter((prod) =>
+      prod.name.toLowerCase().includes(text.toLowerCase())
+    );
+
+    const beverage = product.beverage.filter((prod) =>
+      prod.name.toLowerCase().includes(text.toLowerCase())
+    );
+
+    return {
+      burger,
+      beverage,
+    };
+  };
 
   return (
     <Main>
       <Container>
-        <Header click={click} setClick={setClick} />
+        <Header click={click} setClick={setClick} setText={setText} />
         <CardContainer>
           <CardsStyle>
-            {cardsData.map((card) => {
-              return (
-                <Card
-                  key={card.id}
-                  img={card.img}
-                  price={card.price}
-                  title={card.title}
-                  food={card.food}
-                  handleCardClick={handleCardClick}
-                  id={card.id}
-                  selected={selectedCards.includes(card.id)}
-                  type={"food"}
-                />
-              );
-            })}
+            {product &&
+              findProducts(text).burger.map((card) => {
+                return (
+                  <Card
+                    key={card.id}
+                    img={card.image}
+                    price={card.price}
+                    title={"Sanduíches"}
+                    food={card.name}
+                    handleCardClick={handleCardClick}
+                    id={card.id}
+                    selected={selectedCards.includes(card.id)}
+                    type={"food"}
+                  />
+                );
+              })}
           </CardsStyle>
         </CardContainer>
 
         <CardContainer>
           <CardsStyle>
-            {cardsData.map((card) => {
-              return (
-                <Card
-                  key={card.id}
-                  img={card.img}
-                  price={card.price}
-                  title={card.title}
-                  food={card.food}
-                  handleCardClick={handleCardClick}
-                  id={card.id}
-                  selected={selectedDrink.includes(card.id)}
-                  type={"drink"}
-                />
-              );
-            })}
+            {product &&
+              findProducts(text).beverage.map((card) => {
+                return (
+                  <Card
+                    key={card.id}
+                    img={card.image}
+                    price={card.price}
+                    title={"Bebidas"}
+                    food={card.name}
+                    handleCardClick={handleCardClick}
+                    id={card.id}
+                    selected={selectedDrink.includes(card.id)}
+                    type={"drink"}
+                  />
+                );
+              })}
           </CardsStyle>
         </CardContainer>
       </Container>
-      <Car display={click}>
+      <Car click={click}>
         <div>
           <header>
             <span>Carrinho de compras</span>
@@ -86,105 +111,3 @@ export default function Home() {
     </Main>
   );
 }
-
-const Main = styled.main`
-  width: 100vw;
-  height: calc(100vh - 80px);
-  margin-top: 80px;
-  padding-top: 30px;
-  overflow-y: auto;
-`;
-
-const Container = styled.div`
-  max-width: 100vw;
-  width: 90%;
-  margin: 0 auto;
-  overflow-x: hidden;
-`;
-
-const CardContainer = styled.div`
-  padding: 0 20px;
-  position: relative;
-  &:hover div {
-    opacity: 1;
-  }
-`;
-
-const CardsStyle = styled.div`
-  width: min-content;
-  display: flex;
-  gap: 25px;
-  margin-bottom: 20px;
-`;
-
-const Car = styled.div`
-  display: ${(props) => (props.display ? "flex" : "none")};
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  background: rgba(51, 51, 51, 0.5);
-  > div {
-    width: min(500px, 90%);
-    height: 58px;
-    margin-top: 80px;
-    > header {
-      height: 58px;
-      background: #27ae60;
-      padding: 0 22px;
-      border-radius: 5px 5px 0px 0px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      > span {
-        font-family: "Inter";
-        font-style: normal;
-        font-weight: 700;
-        font-size: 18px;
-        line-height: 28px;
-        color: #fff;
-      }
-
-      > :nth-child(2) {
-        display: inline-block;
-        width: 35px;
-        height: 35px;
-        line-height: 35px;
-        text-align: center;
-        border-radius: 50%;
-        opacity: 0.3;
-        :hover {
-          background-color: rgba(1, 1, 1, 0.1);
-          opacity: 0.8;
-          cursor: pointer;
-        }
-      }
-    }
-    > div {
-      height: 158px;
-      background-color: #fff;
-      color: #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      gap: 10px;
-
-      font-family: "Inter";
-      > p {
-        font-weight: 700;
-        font-size: 18px;
-        line-height: 24px;
-      }
-      > span {
-        font-size: 14px;
-        line-height: 24px;
-        color: #828282;
-      }
-    }
-  }
-`;

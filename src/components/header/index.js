@@ -6,10 +6,16 @@ import { FiLogOut } from "react-icons/fi";
 import { HiSearch } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({click, setClick}) {
+export default function Header({click, setClick, setText }) {
   const [isFocus, setFocus] = useState(false);
   const [search, setSearch] = useState(false);
   const navigate = useNavigate()
+
+  const logout = () => {
+    localStorage.removeItem("token")
+    navigate("/")
+    setSearch(false)
+  }
   
   return !search ? (
     <StyleSection>
@@ -21,6 +27,7 @@ export default function Header({click, setClick}) {
           <input
             type="text"
             placeholder="Digitar Pesquisa"
+            onChange={(e) => setText(e.target.value)}
             onBlur={() => setFocus(false)}
             onFocus={() => setFocus(true)}
           />
@@ -33,7 +40,7 @@ export default function Header({click, setClick}) {
           <FaShoppingCart />
           <span>0</span>
         </div>
-        <FiLogOut onClick={() => navigate("/")}/>
+        <FiLogOut onClick={logout}/>
       </StyleContainer>
     </StyleSection>
   ) : (
@@ -42,6 +49,7 @@ export default function Header({click, setClick}) {
         <input
           type="text"
           placeholder="Digitar Pesquisa"
+          onChange={(e) => setText(e.target.value)}
           onBlur={() => setFocus(false)}
           onFocus={() => setFocus(true)}
         />
@@ -128,6 +136,7 @@ const StyleInput = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     svg {
       width: 20px;
       height: 20px;
@@ -175,6 +184,7 @@ const StyleContainer = styled.div`
     width: 25px;
     height: 25px;
     color: #bdbdbd;
+    cursor: pointer;
   }
 
   @media (max-width: 950px) {

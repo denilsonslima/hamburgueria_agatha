@@ -1,7 +1,16 @@
 import styled from "styled-components";
-export default function Card({food, title, price, img, handleCardClick, id, selected, type}) {
+export default function Card({
+  food,
+  title,
+  price,
+  img,
+  handleCardClick,
+  id,
+  selected,
+  type,
+}) {
   return (
-    <CardStyle selected={selected} onClick={()=> handleCardClick(id, type)}>
+    <CardStyle selected={selected} onClick={() => handleCardClick(id, type)}>
       <div>
         <img src={img} alt="" />
       </div>
@@ -21,7 +30,7 @@ const CardStyle = styled.div`
   display: flex;
   flex-direction: column;
   border: 2px solid #e0e0e0;
-  border-color: ${props => props.selected ? "#27AE60" : "#E0E0E0" };
+  border-color: ${(props) => (props.selected ? "#27AE60" : "#E0E0E0")};
   border-radius: 5px;
   &:hover {
   }
@@ -69,7 +78,9 @@ const CardStyle = styled.div`
       color: #27ae60;
     }
 
-    > h2, span, p {
+    > h2,
+    span,
+    p {
       pointer-events: none;
     }
 
@@ -83,10 +94,10 @@ const CardStyle = styled.div`
       line-height: 17px;
       color: #ffffff;
       cursor: pointer;
-      background: #E0E0E0;
-      background-color: ${props => props.selected ? "#27AE60" : "#E0E0E0" };
-      border: 2px solid #E0E0E0;
-      border-color: ${props => props.selected ? "#27AE60" : "#E0E0E0" };
+      background: #e0e0e0;
+      background-color: ${(props) => (props.selected ? "#27AE60" : "#E0E0E0")};
+      border: 2px solid #e0e0e0;
+      border-color: ${(props) => (props.selected ? "#27AE60" : "#E0E0E0")};
       border-radius: 8px;
     }
   }
