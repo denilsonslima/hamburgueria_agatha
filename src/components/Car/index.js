@@ -40,7 +40,7 @@ export default function Car({ click, setClick, shoppingCart, removeProducts }) {
   };
 
   const generateWhatsAppLink = () => {
-    const description = shoppingCart.map((item) => `- ${item.quantity} ${item.name}`).join("\n"); // Inserir aqui a descrição do pedido
+    const description = products.map((item) => `- ${item.quantity} ${item.name}`).join("\n"); // Inserir aqui a descrição do pedido
     const formattedTotal = count.toFixed(2).replace(".", ","); // Formatar o total
     const message = `Seu pedido: \n${description} \nR$ ${formattedTotal}`; // Mensagem do WhatsApp
 
