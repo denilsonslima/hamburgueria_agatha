@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export default function Button({ children, type, color }) {
+export default function Button({ children, type, color, generateWhatsAppLink  }) {
   return (
-    <ButtonStyle type={type} color={color}>
+    <ButtonStyle type={type} color={color} onClick={generateWhatsAppLink}>
       {children}
     </ButtonStyle>
   );

@@ -6,7 +6,7 @@ import { FiLogOut } from "react-icons/fi";
 import { HiSearch } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({click, setClick, setText }) {
+export default function Header({click, setClick, setText, quantity }) {
   const [isFocus, setFocus] = useState(false);
   const [search, setSearch] = useState(false);
   const navigate = useNavigate()
@@ -38,7 +38,7 @@ export default function Header({click, setClick, setText }) {
         <HiSearch className="iconSearch" onClick={() => setSearch(true)} />
         <div onClick={() => setClick(!click)}>
           <FaShoppingCart />
-          <span>0</span>
+          <span>{quantity}</span>
         </div>
         <FiLogOut onClick={logout}/>
       </StyleContainer>

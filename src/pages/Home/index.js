@@ -2,14 +2,16 @@ import Card from "../../components/Card";
 import Header from "../../components/header";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Car, CardContainer, CardsStyle, Container, Main } from "./styles";
+import { CardContainer, CardsStyle, Container, Main } from "./styles";
+import Car from "../../components/Car";
 
 export default function Home() {
-  const [selectedCards, setSelectedCards] = useState([]);
-  const [selectedDrink, setSelectDrink] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState([]);
   const [product, setProducts] = useState(false);
   const [click, setClick] = useState(false);
   const [text, setText] = useState("");
+  const [shoppingCart, setshoppingCart] = useState([]);
+  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -21,14 +23,8 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  const handleCardClick = (cardId, type) => {
-    if (!selectedCards.includes(cardId) || !selectedDrink.includes(cardId)) {
-      if (type === "food") {
-        setSelectedCards([cardId]);
-      } else {
-        setSelectDrink([cardId]);
-      }
-    }
+  const handleCardClick = (cardId) => {
+    setSelectedProduct([cardId]);
   };
 
   const findProducts = (text) => {
@@ -50,10 +46,29 @@ export default function Home() {
     };
   };
 
+  const addProducts = (product) => {
+    const newProduct = { ...product, quantity: 1 };
+    if (!shoppingCart.includes(product)) {
+      setshoppingCart([...shoppingCart, newProduct]);
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const removeProducts = (product) => {
+    const carItem = shoppingCart.filter((item) => item !== product);
+    setshoppingCart(carItem);
+    setQuantity(quantity - 1);
+  };
+
   return (
     <Main>
       <Container>
-        <Header click={click} setClick={setClick} setText={setText} />
+        <Header
+          click={click}
+          setClick={setClick}
+          setText={setText}
+          quantity={quantity}
+        />
         <CardContainer>
           <CardsStyle>
             {product &&
@@ -61,14 +76,11 @@ export default function Home() {
                 return (
                   <Card
                     key={card.id}
-                    img={card.image}
-                    price={card.price}
+                    card={card}
                     title={"Sanduíches"}
-                    food={card.name}
                     handleCardClick={handleCardClick}
-                    id={card.id}
-                    selected={selectedCards.includes(card.id)}
-                    type={"food"}
+                    selected={selectedProduct.includes(card.id)}
+                    addProducts={addProducts}
                   />
                 );
               })}
@@ -82,32 +94,23 @@ export default function Home() {
                 return (
                   <Card
                     key={card.id}
-                    img={card.image}
-                    price={card.price}
+                    card={card}
                     title={"Bebidas"}
-                    food={card.name}
                     handleCardClick={handleCardClick}
-                    id={card.id}
-                    selected={selectedDrink.includes(card.id)}
-                    type={"drink"}
+                    selected={selectedProduct.includes(card.id)}
+                    addProducts={addProducts}
                   />
                 );
               })}
           </CardsStyle>
         </CardContainer>
       </Container>
-      <Car click={click}>
-        <div>
-          <header>
-            <span>Carrinho de compras</span>
-            <span onClick={() => setClick(!click)}>X</span>
-          </header>
-          <div>
-            <p>Sua sacola está vazia</p>
-            <span>Adicione itens</span>
-          </div>
-        </div>
-      </Car>
+      <Car
+        click={click}
+        setClick={setClick}
+        shoppingCart={shoppingCart}
+        removeProducts={removeProducts}
+      />
     </Main>
   );
 }

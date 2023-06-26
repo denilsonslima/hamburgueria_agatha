@@ -70,7 +70,7 @@ export default function FormLogin() {
             handleForm={handleForm}
             required
           />
-          <span>Name</span>
+          <span>Email</span>
         </div>
         <div>
           <Input
