@@ -47,8 +47,8 @@ export default function Home() {
   };
 
   const addProducts = (product) => {
-    const newProduct = { ...product, quantity: 1 };
-    if (!shoppingCart.includes(product)) {
+    if (!shoppingCart.find((prod) => prod.id === product.id)) {
+      const newProduct = { ...product, quantity: 1 };
       setshoppingCart([...shoppingCart, newProduct]);
       setQuantity(quantity + 1);
     }
