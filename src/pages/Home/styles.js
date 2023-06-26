@@ -16,6 +16,7 @@ export const Container = styled.div`
 `;
 
 export const CardContainer = styled.div`
+  overflow-x: scroll;
   padding: 0 20px;
   position: relative;
   &:hover div {
